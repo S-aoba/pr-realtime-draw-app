@@ -6,8 +6,12 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'standard-with-typescript',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -16,13 +20,23 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  plugins: ['react'],
+  plugins: ['react', 'import', 'react-hooks', '@typescript-eslint', 'prettier'],
+  ignorePatterns: ['.eslintrc.js', 'postcss.config.js', 'tailwind.config.js'],
   rules: {
+    'no-unused-vars': 'off',
+    'no-underscore-dangle': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
-    'import/prefer-default-export': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    'react/jsx-filename-extension': [
+      'error',
+      {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    ],
     'import/extensions': [
       'error',
+      'ignorePackages',
       {
         js: 'never',
         jsx: 'never',
@@ -30,19 +44,13 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'react/jsx-filename-extension': [
-      'error',
+    'react/function-component-definition': [
+      2,
       {
-        extensions: ['.jsx', '.tsx'],
+        namedComponents: 'arrow-function',
       },
     ],
-    'react/react-in-jsx-scope': 'off',
-    'no-void': [
-      'error',
-      {
-        allowAsStatement: true,
-      },
-    ],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
   },
   settings: {
     'import/resolver': {
@@ -52,4 +60,4 @@ module.exports = {
       },
     },
   },
-};
+}
